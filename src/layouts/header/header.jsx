@@ -31,8 +31,7 @@ export const Header = () => {
   const [value, setValue] = useState("");
   const search = useDebounce(value);
   const { data: datas } = useGetCatagries();
-  // const { data, isLoading } = useGetPhone(search);
-  const { data, isLoading } = useGetAllData(search);
+  const { data, isPending } = useGetAllData(search);
 
   console.log(data);
 
@@ -55,7 +54,7 @@ export const Header = () => {
   };
 
   const category = () => {
-   setCategoryOpen(!categoryOpen);
+    setCategoryOpen(!categoryOpen);
   };
 
   const AccModal = () => {
@@ -75,7 +74,10 @@ export const Header = () => {
           >
             <Bars /> Каталог
           </div>
-          <CategoryDialog categoryOpen={categoryOpen} setCategoryOpen={setCategoryOpen} />
+          <CategoryDialog
+            categoryOpen={categoryOpen}
+            setCategoryOpen={setCategoryOpen}
+          />
         </div>
       </div>
       <div className="flex relative items-center">
@@ -90,30 +92,36 @@ export const Header = () => {
         <label htmlFor="search" className="absolute right-1 cursor-pointer">
           <Search />
         </label>
+
+        <div className="absolute z-10 w-full  top-[100%] ">
+          {isPending ? (
+            <div className="w-full bg-white shadow-md p-3 text-center">
+              <h1>Loading...</h1>
+            </div>
+          ) : value.length >= 3 ? (
+      
+              <div className="w-full   h-[50vh] overflow-auto  ">
+                {data?.map((item) => (
+                  <Link
+                    key={item.id}
+                    className="border border-gray-300 flex gap-5 bg-white items-center p-3"
+                    onClick={(e) => setValue(e.target.reset())}
+                    to={`product/${item.datakey}/${item.id}`}
+                  >
+                    <img className="w-[10%]" src={item.img} alt="" />
+                    <span>{item.title}</span>
+                  </Link>
+                ))}
+                {!data?.length && !isPending && (
+                  <div className="w-full bg-white shadow-md p-3 text-center">
+                    <h1>Not Found</h1>
+                  </div>
+                )}
+              </div>
+          ) : null}
+        </div>
       </div>
-      <div className="absolute z-10 left-[29.1%] w-[42.9%] h-[50vh] overflow-auto  top-[10.2%]">
-        {isLoading ? (
-          <h1>Loading...</h1>
-        ) : value.length >= 3 ? (
-          data?.map((item) => (
-            <Link
-              key={item.id}
-              to={`product/${item.datakey}/${item.id}`}
-              className="border border-gray-300 flex gap-5 bg-white items-center p-3"
-            >
-              <img className="w-[10%]" src={item.img} alt="" />
-              <span>{item.title}</span>
-            </Link>
-          ))
-        ) : (
-          ""
-        )}
-        {!data?.length && !isLoading && (
-          <div className="bg-white p-3">
-            <h1>Not Found</h1>
-          </div>
-        )}
-      </div>
+
       <div className="flex items-center gap-5 ">
         {token ? (
           <>

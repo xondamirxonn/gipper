@@ -17,6 +17,7 @@ import { useGetDiscount } from "./service/query/useGetDiscount";
 import { useGetLaptop } from "./service/query/useGetLaptop";
 import { LaptopData } from "./components/LaptopData";
 import { loadState } from "../../services/storage";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { data } = useGetBanner();
@@ -124,13 +125,17 @@ export const Home = () => {
             <div className="border border-b-0 mt-2 border-gray-300"></div>
           </div>
           {getPhone?.slice(0, 3).map((item) => (
-            <div key={item.id} className="flex gap-4 relative rounded-md  shadow-md ">
+            <Link
+              to={`/product/${item.datakey}/${item.id}`}
+              key={item.id}
+              className="flex gap-4 relative rounded-md  shadow-md "
+            >
               <img className="w-[50%]" src={item.img} alt="" />
               <div className="flex flex-col justify-aroun">
                 <h1 className="absolute top-2">{item.title}</h1>
                 <strong className="absolute bottom-1">${item.price}</strong>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         <div className="flex gap-4 flex-col">
@@ -139,13 +144,17 @@ export const Home = () => {
             <div className="border border-b-0 mt-2 border-gray-300"></div>
           </div>
           {laptop?.slice(0, 3).map((item) => (
-            <div key={item.id} className="flex gap-4 relative rounded-md shadow-md ">
+            <Link
+              to={`/product/${item.datakey}/${item.id}`}
+              key={item.id}
+              className="flex gap-4 relative rounded-md shadow-md "
+            >
               <img className="w-[50%]" src={item.img} alt="" />
               <div className="flex flex-col justify-aroun">
                 <h1 className="absolute top-2">{item.title}</h1>
                 <strong className="absolute bottom-1">${item.price}</strong>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         <div className="flex gap-4 flex-col">
@@ -154,13 +163,17 @@ export const Home = () => {
             <div className="border border-b-0 mt-2 border-gray-300"></div>
           </div>
           {getPhone?.slice(0, 3).map((item) => (
-            <div key={item.id} className="flex gap-4 relative rounded-md shadow-md ">
+            <Link
+              to={`/product/${item.datakey}/${item.id}`}
+              key={item.id}
+              className="flex gap-4 relative rounded-md shadow-md "
+            >
               <img className="w-[50%]" src={item.img} alt="" />
               <div className="flex flex-col justify-aroun">
                 <h1 className="absolute top-2">{item.title}</h1>
                 <strong className="absolute bottom-1">${item.price}</strong>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -203,8 +216,6 @@ export const Home = () => {
           ))}
         </div>
       </section>
-
-     
     </div>
   );
 };

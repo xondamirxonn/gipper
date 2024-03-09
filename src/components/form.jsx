@@ -6,7 +6,6 @@ import { loadState, saveState } from "../services/storage";
 import { usePostLogin } from "../pages/home/service/mutation/usePostLogin";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Spinner from "../assets/img/tube-spinner.svg";
 
 export const Form = ({ isOpen, setIsOpen }) => {
   let [active, setActive] = useState(false);
@@ -21,12 +20,12 @@ export const Form = ({ isOpen, setIsOpen }) => {
         console.log(data);
         saveState("user", data);
         reset();
+        navigate("/")
       },
     });
   };
-  console.log(token);
 
-  const loginSubmit = (data) => {
+  const loginSubmit = (data, e) => {
     loginMutete(data, {
       onSuccess: (data) => {
         console.log(data);
@@ -34,11 +33,12 @@ export const Form = ({ isOpen, setIsOpen }) => {
 
         // loadState("user");
         reset();
-        navigate("/");
+        
       },
       onError: (error) => {
         toast(error.response.data, { theme: "colored", type: "error" });
         console.log(error);
+        reset()
       },
     });
   };
@@ -81,7 +81,7 @@ export const Form = ({ isOpen, setIsOpen }) => {
                 />
               </div>
               <div className="flex flex-col">
-                <label htmlFor="email">электронная почта</label>
+                <label htmlFor="email">электронная почта*</label>
                 <input
                   id="email"
                   className="border border-black outline-none p-2 rounded-md"
@@ -91,7 +91,7 @@ export const Form = ({ isOpen, setIsOpen }) => {
               </div>
             </div>
             <div className="flex flex-col">
-              <label htmlFor="password">Пароль</label>
+              <label htmlFor="password">Пароль*</label>
               <input
                 id="password"
                 className="border border-black outline-none p-2 rounded-md"
@@ -139,6 +139,7 @@ export const Form = ({ isOpen, setIsOpen }) => {
                   isLoading ? 'disabled:cursor-not-allowed' : ""
                 }`}
                 disabled={isLoading}
+                
               >
                 {isLoading ? "Loading..." : "Войти"}
               </button>
