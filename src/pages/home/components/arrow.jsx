@@ -3,7 +3,12 @@ function SampleNextArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block",  position: "absolute", right: "10px" }}
+      style={{
+        ...style,
+        display: "block",
+        position: "absolute",
+        right: "10px",
+      }}
       onClick={onClick}
     />
   );
@@ -14,7 +19,13 @@ function SamplePrevArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "green", position: "absolute", zIndex: "9" }}
+      style={{
+        ...style,
+        display: "block",
+        position: "absolute",
+        zIndex: "9",
+        left: "10px",
+      }}
       onClick={onClick}
     />
   );
@@ -28,8 +39,10 @@ function SampleNextArrow3(props) {
       style={{
         ...style,
         display: "block",
+        background: "green",
+        borderRadius: "50%",
         position: "absolute",
-        right: "0",
+        right: "13px",
       }}
       onClick={onClick}
     />
@@ -46,6 +59,8 @@ function SamplePrevArrow3(props) {
         display: "block",
         background: "green",
         position: "absolute",
+        left: "2px",
+        borderRadius: "50%",
         zIndex: "9",
       }}
       onClick={onClick}
@@ -53,4 +68,4 @@ function SamplePrevArrow3(props) {
   );
 }
 
-export {SampleNextArrow, SamplePrevArrow, SampleNextArrow3, SamplePrevArrow3}
+export { SampleNextArrow, SamplePrevArrow, SampleNextArrow3, SamplePrevArrow3 };

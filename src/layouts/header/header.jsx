@@ -13,23 +13,26 @@ import { client } from "../../config/use-query";
 import { loadState, saveState } from "../../services/storage";
 import { Form } from "../../components/form";
 import { useGetCatagries } from "../../pages/home/service/query/useGetCategory";
-import { Category } from "./components/category";
+import { CategoryModal } from "../../components/categoryModal";
 import Profile from "../../assets/img/profile.avif";
 import { AccountModal } from "../../components/accountModal";
 import useDebounce from "../../hook/useDebounce";
 import { useGetPhone } from "../../pages/home/service/query/useGetPhone";
-import { PhoneData } from "../../pages/home/components/PhoneData";
+import { useGetAllData } from "../../pages/home/service/query/useGetAllData";
+import { CategoryDialog } from "../../components/categoryDialog";
 
 export const Header = () => {
   const navigate = useNavigate();
   const locations = useLocation();
   const [catOPen, setCatalog] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(false);
   const [Open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const search = useDebounce(value);
   const { data: datas } = useGetCatagries();
-  const { data, isLoading } = useGetPhone(search);
+  // const { data, isLoading } = useGetPhone(search);
+  const { data, isLoading } = useGetAllData(search);
 
   console.log(data);
 
@@ -52,7 +55,7 @@ export const Header = () => {
   };
 
   const category = () => {
-    setCatalog(!catOPen);
+   setCategoryOpen(!categoryOpen);
   };
 
   const AccModal = () => {
@@ -72,6 +75,7 @@ export const Header = () => {
           >
             <Bars /> Каталог
           </div>
+          <CategoryDialog categoryOpen={categoryOpen} setCategoryOpen={setCategoryOpen} />
         </div>
       </div>
       <div className="flex relative items-center">
@@ -87,31 +91,38 @@ export const Header = () => {
           <Search />
         </label>
       </div>
-      <div className="absolute z-10 left-[28%] w-[43%] h-[50vh] overflow-auto  top-24">
+      <div className="absolute z-10 left-[29.1%] w-[42.9%] h-[50vh] overflow-auto  top-[10.2%]">
         {isLoading ? (
           <h1>Loading...</h1>
         ) : value.length >= 3 ? (
           data?.map((item) => (
-            <div className="border border-gray-300 flex gap-5 bg-white items-center p-3">
+            <Link
+              key={item.id}
+              to={`product/${item.datakey}/${item.id}`}
+              className="border border-gray-300 flex gap-5 bg-white items-center p-3"
+            >
               <img className="w-[10%]" src={item.img} alt="" />
               <span>{item.title}</span>
-            </div>
+            </Link>
           ))
         ) : (
           ""
         )}
-        {!data?.length && !isLoading && <h1>Not Found</h1>}
+        {!data?.length && !isLoading && (
+          <div className="bg-white p-3">
+            <h1>Not Found</h1>
+          </div>
+        )}
       </div>
       <div className="flex items-center gap-5 ">
         {token ? (
           <>
             <img
               onClick={() => AccModal()}
-              className="w-[80px] h-[80px] rounded-full object-cover cursor-pointer"
+              className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
               src={Profile}
               alt=""
             />
-
             <AccountModal Opened={Open} setOpen={setOpen}>
               <div className="flex flex-col items-center mb-10">
                 <img className="w-[80%] " src={Profile} alt="" />

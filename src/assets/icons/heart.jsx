@@ -17,4 +17,5 @@ export const Heart = ({ className, onClick }) => {
       />
     </svg>
   );
+ 
 };

@@ -5,13 +5,16 @@ import { usePostReg } from "../pages/home/service/mutation/usePostRegister";
 import { loadState, saveState } from "../services/storage";
 import { usePostLogin } from "../pages/home/service/mutation/usePostLogin";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../assets/img/tube-spinner.svg";
 
 export const Form = ({ isOpen, setIsOpen }) => {
   let [active, setActive] = useState(false);
-  const { register, reset, handleSubmit,  } = useForm();
+  const { register, reset, handleSubmit } = useForm();
   const { mutate, isPending } = usePostReg();
   const { mutate: loginMutete, isPending: isLoading } = usePostLogin();
-const navigate = useNavigate()
+  const navigate = useNavigate();
+  const token = loadState("user");
   const submit = (data) => {
     mutate(data, {
       onSuccess: (data) => {
@@ -21,27 +24,28 @@ const navigate = useNavigate()
       },
     });
   };
+  console.log(token);
 
+  const loginSubmit = (data) => {
+    loginMutete(data, {
+      onSuccess: (data) => {
+        console.log(data);
+        saveState("user", data);
 
-    const loginSubmit = (data) => {
-      loginMutete(data, {
-        onSuccess: (data) => {
-          console.log(data);
-          saveState("user", data);
-
-          loadState("user");
-          reset();
-          navigate("/")
-
-        },
-      });
-     
-    };
-
+        // loadState("user");
+        reset();
+        navigate("/");
+      },
+      onError: (error) => {
+        toast(error.response.data, { theme: "colored", type: "error" });
+        console.log(error);
+      },
+    });
+  };
 
   return (
     <div>
-      <MyDialog isOpen={isOpen}>
+      <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
         {active ? (
           <form className="" onSubmit={handleSubmit(submit)}>
             <h1 className="text-3xl text-center mb-3">зарегистрироваться</h1>
@@ -95,10 +99,7 @@ const navigate = useNavigate()
                 type="password"
               />
             </div>
-            <button
-              // onClick={() => setActive(false)}
-              className="bg-yellow-400 p-3 w-full mt-3"
-            >
+            <button className="bg-yellow-400 p-3 w-full mt-3">
               {isPending ? "Loading..." : "Зарегистрироваться"}
             </button>
             <button
@@ -133,7 +134,12 @@ const navigate = useNavigate()
                   type="password"
                 />
               </div>
-              <button className="bg-yellow-400 p-3 ">
+              <button
+                className={`bg-yellow-400 p-3 ${
+                  isLoading ? 'disabled:cursor-not-allowed' : ""
+                }`}
+                disabled={isLoading}
+              >
                 {isLoading ? "Loading..." : "Войти"}
               </button>
 

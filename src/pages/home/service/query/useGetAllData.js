@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { request } from "../../../../config/request";
 
-export const useGetPhone = (search = "") => {
+export const useGetAllData = (search = "") => {
   return useQuery({
-    queryKey: ["get-phone", search],
+    queryKey: ["AllData", search],
     queryFn: () =>
       request
-        .get("/phones", { params: { title_like: search } })
+        .get(`alldata`, { params: { title_like: search } })
         .then((res) => res.data),
   });
 };
+
 
 
