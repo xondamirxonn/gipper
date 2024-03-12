@@ -31,13 +31,13 @@ export const GetAll = (prop) => {
             <h1 className="text-center">{prop.title}</h1>
           </div>
         </div>
+      </Link>
         <div className="flex justify-between items-center w-full absolute bottom-2 right-0 p-1 ">
           <strong className="text-xl">${prop.price}</strong>
           <div onClick={AddCart} className="bg-yellow-400 p-2 cursor-pointer">
             <Cart />
           </div>
         </div>
-      </Link>
     </div>
   );
 };
