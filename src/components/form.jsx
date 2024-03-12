@@ -19,6 +19,7 @@ export const Form = ({ isOpen, setIsOpen }) => {
       onSuccess: (data) => {
         console.log(data);
         saveState("user", data);
+       
         reset();
         navigate("/")
       },

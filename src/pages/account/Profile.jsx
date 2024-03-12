@@ -152,6 +152,7 @@ export const Profile = () => {
         reset();
       },
     });
+    console.log(data);
   };
 
   const hiddenUsername =
@@ -160,8 +161,8 @@ export const Profile = () => {
     username.charAt(username.length - 1);
 
   return (
-    <div className="containerr">
-      <div className="flex gap-5">
+    <div className="containerr pt-10">
+      <div className="flex gap-5 mb-10">
         <div className="flex flex-col w-[25%] gap-4">
           <button className="border p-3 border-black">
             Персональные данные
@@ -200,12 +201,7 @@ export const Profile = () => {
             <p>
               {hiddenUsername}@{domain}
             </p>
-            <button
-              onClick={() => setOpen(!open)}
-              className="bg-green-400 rounded-md text-white"
-            >
-              посмотреть почту
-            </button>
+
             <MyDialog isOpen={open} setIsOpen={setOpen}>
               <span className="text-2xl">Ваш адрес электронной почты</span>
               <input
@@ -224,6 +220,14 @@ export const Profile = () => {
                 </button>
               </div>
             </MyDialog>
+          </div>
+          <div className="flex justify-end">
+            <button
+              onClick={() => setOpen(!open)}
+              className="bg-yellow-400 rounded-md text-white p-2 w-[20%] "
+            >
+              посмотреть почту
+            </button>
           </div>
           <button
             className="text-red-500 w-[15%] mt-3 text-start"

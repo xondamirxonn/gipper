@@ -4,7 +4,7 @@ export const BannerCard = (props) => {
   
   return (
     <div className=''>
-      <img className='w-full h-[50vh] object-contain' src={props.img} alt="" />
+      <img className='w-full h-[70vh] object-cover' src={props.img} alt="" />
     </div>
   )
 }

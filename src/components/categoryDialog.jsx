@@ -14,7 +14,7 @@ export const CategoryDialog = ({categoryOpen, setCategoryOpen}) => {
       >
         <div className="grid grid-cols-3 justify-betwen gap-10  p-5 items-center">
           {data?.map((item) => (
-            <Link to={`catagories/${item.datakey}` } onClick={() => setCategoryOpen(false)}   className="mx-auto flex items-center gap-5 bg-gray-200 p-4 h-[20vh] text-center w-[100%]">
+            <Link key={item.id} to={`catagories/${item.datakey}` } onClick={() => setCategoryOpen(false)}   className="mx-auto flex items-center gap-5 bg-gray-200 p-4 h-[20vh] text-center w-[100%]">
               <img className="w-[100px]" src={item.img} alt="" />
               <h1>{item.title}</h1>
             </Link>

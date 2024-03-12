@@ -10,6 +10,3 @@ export const useGetAllData = (search = "") => {
         .then((res) => res.data),
   });
 };
-
-
-

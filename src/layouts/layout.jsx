@@ -10,7 +10,7 @@ export const Layout = () => {
      <Header />
       </header>
 
-      <main>
+      <main className='mt-[6%]'>
         <Outlet />
       </main>
 

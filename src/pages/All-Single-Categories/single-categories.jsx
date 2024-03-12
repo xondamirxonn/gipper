@@ -20,7 +20,7 @@ console.log(token);
     }
   };
   return (
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-4 gap-5 pt-10 p-5">
         {data?.map((item) => (
           <div className="shadow-md rounded-md p-2 text-center ">
             <Link key={item.id} to={`/product/${item.datakey}/${item.id}`}>

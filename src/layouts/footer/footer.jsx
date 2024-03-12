@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Logo from '../../assets/icons/logo.svg'
 export const Footer = () => {
   return (
-    <div className="p-16 bg-gray-200 flex  justify-between">
+    <div className="p-16 bg-gray-200 flex  justify-between ">
       <div className='flex flex-col gap-1.5'>
         <Link className=" block" to={"/"}>
           <img src={Logo} alt="" />
